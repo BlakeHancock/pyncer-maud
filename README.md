@@ -60,7 +60,7 @@ if (!$hookHandler->load()) {
     $hookProvider = new ClosureHookProvider();
     $hookProvider->addHook('my_alias', 'my_header', function() {
         echo 'Woah, ';
-        $cruel = 'Cool'; // We can modify values in the hooks scope.
+        $cruel = 'Cool'; // We can modify values in the hook's scope.
     });
     $hookProvider->addHook('my_alias', 'my_footer', function() {
         echo ' World';
