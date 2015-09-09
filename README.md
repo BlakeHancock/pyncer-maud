@@ -77,7 +77,7 @@ Hook::init($hookHandler);
 ```php
 $hook = Hook::get('my_header');
 // We support both methods because the include hook handler could return 'eval' if the cache is not saved.
-($hook ? (Hook::getMethod() == Hook::METHOD_EVAL ? eval($hook) : include($hook)) : null);
+$hook_result = ($hook ? (Hook::getMethod() == Hook::METHOD_EVAL ? eval($hook) : include($hook)) : null);
 if (!$hook_result) {
     echo "What's Up ";
 }
