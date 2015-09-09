@@ -1,5 +1,5 @@
 # Maud
-A PHP 5.5+ library to help with implementing extensions into your apps.
+A PHP 5.5+ library to help with implementing extensions into your apps so that you can extend a single codebase to meet the unique needs of each client.
 
 ## Example usage
 
@@ -14,7 +14,7 @@ $hookHandler->setCacheDirectory(__DIR__ . '/cache');
 
 if (!$hookHandler->load()) {
     $hookProvider = new FileHookProvider();
-    $hookProvider->addHookFile("my_alias", __DIR__ . '/my_hooks.php');
+    $hookProvider->addHookFile('my_alias', __DIR__ . '/my_hooks.php');
 
     $hookHandler->build($hookProvider);
     $hookHandler->save();
@@ -26,11 +26,11 @@ Hook::init($hookHandler);
 **my_hooks.php:**
 ```php
 function my_header() {
-    echo "Hello ";
+    echo 'Hello ';
 }
 
 function my_footer() {
-    echo " World";
+    echo ' World';
 }
 ```
 
@@ -39,7 +39,7 @@ function my_footer() {
 $hook = Hook::get('my_header');
 ($hook ? eval($hook) : null);
 
-echo "Cruel";
+echo 'Cruel';
 
 $hook = Hook::get('my_footer');
 ($hook ? eval($hook) : null);
@@ -49,7 +49,7 @@ The resulting output of index.php would be: *Hello Cruel World*
 
 ### Include Style Hook Handler With A Closure Hook Provider:
 
-Becasue the closure hook provider uses reflection, use statements are not supported. You must also ensure your opening and closing function brackets do not share the same line as others.
+Becasue the closure hook provider uses reflection, *use* statements are not supported. You must also ensure your opening and closing function brackets do not share the same line as others.
 
 **Initialize:**
 ```php
@@ -58,11 +58,12 @@ $hookHandler->setCacheDirectory(__DIR__ . '/cache');
 
 if (!$hookHandler->load()) {
     $hookProvider = new ClosureHookProvider();
-    $hookProvider->addHook("my_alias", 'my_header', function() {
-        echo "Woah, ";
+    $hookProvider->addHook('my_alias', 'my_header', function() {
+        echo 'Woah, ';
+        $cruel = 'Cool'; // We can modify values in the hooks scope.
     });
-    $hookProvider->addHook("my_alias", 'my_footer', function() {
-        echo " World";
+    $hookProvider->addHook('my_alias', 'my_footer', function() {
+        echo ' World';
         return true; // Prevent default behaviour
     });
 
@@ -75,23 +76,25 @@ Hook::init($hookHandler);
 
 **index.php:**
 ```php
+$cruel = 'Cruel';
+
 $hook = Hook::get('my_header');
 // We support both methods because the include hook handler could return 'eval' if the cache is not saved.
-$hook_result = ($hook ? (Hook::getMethod() == Hook::METHOD_EVAL ? eval($hook) : include($hook)) : null);
-if (!$hook_result) {
-    echo "What's Up ";
+$hookResult = ($hook ? (Hook::getMethod() == Hook::METHOD_EVAL ? eval($hook) : include($hook)) : null);
+if (!$hookResult) {
+    echo 'What\'s Up ';
 }
 
-echo "Cruel";
+echo $cruel;
 
 $hook = Hook::get('my_footer');
-$hook_result = ($hook ? (Hook::getMethod() == Hook::METHOD_EVAL ? eval($hook) : include($hook)) : null);
-if (!$hook_result) {
-    echo " Planet";
+$hookResult = ($hook ? (Hook::getMethod() == Hook::METHOD_EVAL ? eval($hook) : include($hook)) : null);
+if (!$hookResult) {
+    echo ' Planet';
 }
 ```
 
-The resulting output of index.php would be: *Woah, What's Up Cruel World*
+The resulting output of index.php would be: *Woah, What's Up Cool World*
 
 ## Other Notes
 1. Any *use* statements included in the code sent to the hook builder will be added to the included/evaluated hook.
