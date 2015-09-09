@@ -49,7 +49,7 @@ The resulting output of index.php would be: *Hello Cruel World*
 
 ### Include Style Hook Handler With A Closure Hook Provider:
 
-Becasue the closure hook provider uses reflection, use statements are not supported. You must also limit c
+Becasue the closure hook provider uses reflection, use statements are not supported. You must also ensure your opening and closing function brackets do not share the same line as others.
 
 **Initialize:**
 ```php
