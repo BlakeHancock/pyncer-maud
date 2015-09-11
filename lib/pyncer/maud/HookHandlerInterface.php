@@ -27,7 +27,7 @@ interface HookHandlerInterface
     * Parses and compiles hooks into an array.
     *
     * @param maud\HookProviderInterface $hookProvider A hook provider.
-    * @return this
+    * @return $this
     */
     public function build(maud\HookProviderInterface $hookProvider);
 }

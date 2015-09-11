@@ -24,7 +24,7 @@ trait HookCacheTrait
     * Sets the current cache directory.
     *
     * @param mixed $value The cache directory path to use.
-    * @return this
+    * @return $this
     */
     public function setCacheDirectory($value)
     {
@@ -49,14 +49,14 @@ trait HookCacheTrait
     /**
     * Saves the current hook array to the cache directory.
     *
-    * @return this
+    * @return $this
     */
     abstract public function save();
 
     /**
     * Deletes all 'maud_' prefixed files from the current cache directory.
     *
-    * @return this
+    * @return $this
     */
     public function delete()
     {

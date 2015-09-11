@@ -18,7 +18,7 @@ trait HookHandlerTrait
     * Parses and compiles hooks into an array.
     *
     * @param maud\HookProviderInterface $hookProvider A hook provider.
-    * @return this
+    * @return $this
     */
     public function build(maud\HookProviderInterface $hookProvider)
     {
@@ -172,10 +172,7 @@ trait HookHandlerTrait
                         }
                     }
 
-                    //$new_tokens = '';
-                    //eval('$new_tokens = token_get_all(file_get_contents(' . $path . '));');
-
-                    $path = eval($path);
+                    $path = eval("return " . $path . ";");
 
                     $new_tokens = token_get_all(file_get_contents($path));
                     $tokens = array_merge($tokens, $new_tokens);
