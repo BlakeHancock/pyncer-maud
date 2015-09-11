@@ -1,0 +1,17 @@
+{
+    "name": "pyncer/maud",
+    "description": "A library to help with implementing extensions into your apps so that you can extend a single codebase to meet the unique needs of each client.",
+    "type": "library",
+    "version": "1.0.0",
+    "keywords": ["extend","hook","extensions"],
+    "homepage": "https://github.com/BlakeHancock/pyncer-maud",
+    "license": "MIT",
+    "require": {
+        "php": ">=5.5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "pyncer\\maud\\": "lib/pyncer/maud/"
+        }
+    }
+}
