@@ -47,7 +47,7 @@ class IncludeHookHandler extends maud\CacheableHookHandler
             return $dir . DIRECTORY_SEPARATOR . "maud_include_" . $hook . ".php";
         }
 
-        return false;
+        return null;
     }
 
     /**
@@ -78,7 +78,7 @@ class IncludeHookHandler extends maud\CacheableHookHandler
     /**
     * Saves the current hook array to the cache directory.
     *
-    * @return $this
+    * @return HookHandlerInterface
     */
     public function save()
     {

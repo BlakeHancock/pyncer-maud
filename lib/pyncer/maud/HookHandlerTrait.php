@@ -18,7 +18,7 @@ trait HookHandlerTrait
     * Parses and compiles hooks into an array.
     *
     * @param maud\HookProviderInterface $hookProvider A hook provider.
-    * @return $this
+    * @return HookHandlerInterface
     */
     public function build(maud\HookProviderInterface $hookProvider)
     {
