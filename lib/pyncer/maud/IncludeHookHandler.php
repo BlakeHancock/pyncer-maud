@@ -78,7 +78,7 @@ class IncludeHookHandler extends maud\CacheableHookHandler
     /**
     * Saves the current hook array to the cache directory.
     *
-    * @return HookHandlerInterface
+    * @return $this
     */
     public function save()
     {
@@ -117,7 +117,7 @@ class IncludeHookHandler extends maud\CacheableHookHandler
     * Parses and compiles hooks into an array.
     *
     * @param maud\HookProviderInterface $hookProvider A hook provider.
-    * @return HookHandler
+    * @return $this
     */
     public function build(maud\HookProviderInterface $hookProvider)
     {
