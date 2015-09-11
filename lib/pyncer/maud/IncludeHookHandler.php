@@ -64,6 +64,7 @@ class IncludeHookHandler extends maud\CacheableHookHandler
         }
 
         $file = $dir . DIRECTORY_SEPARATOR . 'maud_hooks_used.php';
+
         if (!file_exists($file)) {
             return false;
         }
@@ -77,7 +78,7 @@ class IncludeHookHandler extends maud\CacheableHookHandler
     /**
     * Saves the current hook array to the cache directory.
     *
-    * @return EvalHookHandler
+    * @return this
     */
     public function save()
     {

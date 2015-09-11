@@ -56,7 +56,7 @@ class EvalHookHandler extends maud\CacheableHookHandler
     /**
     * Saves the current hook array to the cache directory.
     *
-    * @return EvalHookHandler
+    * @return this
     */
     public function save()
     {

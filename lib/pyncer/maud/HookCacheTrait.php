@@ -24,7 +24,7 @@ trait HookCacheTrait
     * Sets the current cache directory.
     *
     * @param mixed $value The cache directory path to use.
-    * @return HookCacheTrait
+    * @return this
     */
     public function setCacheDirectory($value)
     {
@@ -49,14 +49,14 @@ trait HookCacheTrait
     /**
     * Saves the current hook array to the cache directory.
     *
-    * @return EvalHookHandler
+    * @return this
     */
     abstract public function save();
 
     /**
     * Deletes all 'maud_' prefixed files from the current cache directory.
     *
-    * @return HookCacheTrait
+    * @return this
     */
     public function delete()
     {
@@ -72,7 +72,10 @@ trait HookCacheTrait
 
         if ($handle = opendir($dir)) {
             while (($filename = readdir($handle)) !== false) {
-                // $filename != '.' && $filename != '..' &&
+                if ($filename == '.' || $filename == '..') {
+                    continue;
+                }
+
                 $file = $dir . DIRECTORY_SEPARATOR . $filename;
                 if (is_file($file) && substr($filename, 0, 5) == 'maud_') {
                     unlink($file);

@@ -19,7 +19,7 @@ interface HookHandlerInterface
     * Gets the code for the specified hook.
     *
     * @param string $hook A hook name.
-    * @return string
+    * @return mixed
     */
     public function get($hook);
 
@@ -27,7 +27,7 @@ interface HookHandlerInterface
     * Parses and compiles hooks into an array.
     *
     * @param maud\HookProviderInterface $hookProvider A hook provider.
-    * @return HookHandler
+    * @return this
     */
     public function build(maud\HookProviderInterface $hookProvider);
 }

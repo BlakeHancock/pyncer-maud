@@ -18,7 +18,7 @@ trait HookHandlerTrait
     * Parses and compiles hooks into an array.
     *
     * @param maud\HookProviderInterface $hookProvider A hook provider.
-    * @return HookHandler
+    * @return this
     */
     public function build(maud\HookProviderInterface $hookProvider)
     {
@@ -115,7 +115,10 @@ trait HookHandlerTrait
         $inClosure = 0;
         $hasReturnValue = false; // Does this extension return a non falsey value
         $label = false;
-        $uses = []; // TODO: Populate this!
+        $uses = [];
+        $bracketDepth = 0;
+        $funcName = '';
+        $funcCode = '';
 
         $len = count($tokens);
         for ($i = 0; $i < $len; ++$i) {
@@ -150,7 +153,6 @@ trait HookHandlerTrait
                     $funcCode = '';
                     $bracketDepth = 1;
                 } else if (is_array($token) && ($token[0] == T_INCLUDE || $token[0] == T_REQUIRE)) {
-                    $includeType = $token[0];
                     $path = '';
 
                     // Skip to ; while building path
@@ -170,7 +172,12 @@ trait HookHandlerTrait
                         }
                     }
 
-                    eval('$new_tokens = token_get_all(file_get_contents(' . $path . '));');
+                    //$new_tokens = '';
+                    //eval('$new_tokens = token_get_all(file_get_contents(' . $path . '));');
+
+                    $path = eval($path);
+
+                    $new_tokens = token_get_all(file_get_contents($path));
                     $tokens = array_merge($tokens, $new_tokens);
                     $len = count($tokens);
                 } else if (is_array($token) && $token[0] == T_USE) {
@@ -207,11 +214,9 @@ trait HookHandlerTrait
                 }
 
                 // We want to override returns with GOTOs so that multiple extensions can use the same hook
-                if ($label == false) {
+                if ($label === false) {
                     $label = ++$this->labelCount;
                 }
-
-                $return_false = false;
 
                 $return_value = null;
                 while (isset($tokens[$i])) {

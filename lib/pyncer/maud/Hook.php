@@ -8,7 +8,6 @@ use pyncer\maud;
 */
 class Hook
 {
-    private static $method;
     private static $isReady = false;
     private static $hookHandler;
 
